@@ -1,0 +1,9 @@
+@echo off
+echo Starting Emulator: Medium_Phone_API_36.1...
+@REM 运行模拟器
+flutter emulators --launch Medium_Phone_API_36.1  
+echo Waiting for 5 seconds...
+timeout /t 5 /nobreak
+echo Running Flutter App...
+flutter run
+pause
