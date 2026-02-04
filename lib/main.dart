@@ -1,38 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/pages/club_page.dart';
-import 'package:hello_flutter/pages/custom_order_page.dart';
-import 'package:hello_flutter/pages/home_page.dart';
-import 'package:hello_flutter/pages/message_page.dart';
-import 'package:hello_flutter/pages/profile_page.dart';
-
+import 'package:flutter/services.dart';
+import 'pages/home_page.dart';
+import 'pages/message_page.dart';
+import 'pages/profile_page.dart';
 import 'router/app_routes.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // transparent status bar
+      statusBarIconBrightness: Brightness.dark, // dark text for status bar
+    ),
+  );
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // 这个组件是应用程序的根组件。
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      // theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      title: '游戏陪玩',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.black,
+          primary: Colors.black,
+          secondary: Colors.deepPurpleAccent,
+        ),
+        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.transparent,
+          elevation: 0,
+        ),
+      ),
       initialRoute: AppRoutes.home,
       routes: AppRoutes.routes,
     );
   }
 }
 
-// ignore: must_be_immutable
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title, this.token});
+  const MyHomePage({super.key, required this.title, this.token});
 
   final String title;
-
-  int? token = 0;
+  final int? token;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -43,8 +58,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    ClubPage(),
-    CustomOrderPage(),
     MessagePage(),
     ProfilePage(),
   ];
@@ -57,30 +70,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // 每次调用 setState 时都会重新运行此方法，例如上面的 _incrementCounter 方法所做的操作。
-    //
-    // Flutter 框架经过优化，可以快速重新运行 build 方法，因此你可以直接重建任何需要更新的内容，
-    // 而无需单独更改组件实例。
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
-          BottomNavigationBarItem(icon: Icon(Icons.groups), label: '俱乐部'),
-          BottomNavigationBarItem(icon: Icon(Icons.assignment), label: '定制单'),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: '消息'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: '我的'),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.deepPurple,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed, // 大于3个选项时必须设置这个，否则会变成白色无法看见
-        onTap: _onItemTapped,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: Colors.grey[200]!, width: 1)),
+        ),
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
+              label: '首页',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble_outline),
+              activeIcon: Icon(Icons.chat_bubble),
+              label: '消息',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              activeIcon: Icon(Icons.person),
+              label: '我的',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.grey,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
