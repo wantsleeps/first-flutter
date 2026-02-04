@@ -5,6 +5,10 @@ import 'pages/message_page.dart';
 import 'pages/profile_page.dart';
 import 'router/app_routes.dart';
 
+import 'package:provider/provider.dart';
+import 'pages/login_page.dart';
+import 'providers/user_provider.dart';
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -12,7 +16,12 @@ void main() {
       statusBarIconBrightness: Brightness.dark, // dark text for status bar
     ),
   );
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => UserProvider())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +46,15 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      initialRoute: AppRoutes.home,
+      // Use Consumer to decide which page to show
+      home: Consumer<UserProvider>(
+        builder: (context, userProvider, child) {
+          return userProvider.isLoggedIn
+              ? const MyHomePage(title: '游戏陪玩')
+              : const LoginPage();
+        },
+      ),
+      // initialRoute is replaced by logic in 'home' property
       routes: AppRoutes.routes,
     );
   }

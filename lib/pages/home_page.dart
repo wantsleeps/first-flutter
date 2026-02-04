@@ -12,15 +12,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedCategoryIndex = 0;
   final List<String> _categories = ["全部", ...MockData.games];
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
-    // Filter companions based on selection
-    final filteredCompanions = _selectedCategoryIndex == 0
-        ? MockData.companions
-        : MockData.companions
-              .where((c) => c.game == _categories[_selectedCategoryIndex])
-              .toList();
+    // Filter companions based on selection and search query
+    final filteredCompanions = MockData.companions.where((c) {
+      final matchesCategory =
+          _selectedCategoryIndex == 0 ||
+          c.game == _categories[_selectedCategoryIndex];
+      final matchesSearch =
+          _searchQuery.isEmpty ||
+          c.name.contains(_searchQuery) ||
+          c.game.contains(_searchQuery);
+      return matchesCategory && matchesSearch;
+    }).toList();
 
     return Scaffold(
       backgroundColor: Colors.grey[50], // Light background
@@ -51,11 +58,19 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           const Icon(Icons.search, color: Colors.grey),
                           const SizedBox(width: 8),
-                          Text(
-                            "搜索陪玩大神...",
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 16,
+                          Expanded(
+                            child: TextField(
+                              controller: _searchController,
+                              onChanged: (value) {
+                                setState(() {
+                                  _searchQuery = value;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                hintText: "搜索陪玩大神...",
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(color: Colors.grey),
+                              ),
                             ),
                           ),
                         ],

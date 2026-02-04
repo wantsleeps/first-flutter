@@ -11,8 +11,8 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Test Page')),
-      body: const Center(child: Text('This is the test page')),
+      appBar: AppBar(title: const Text('测试页')),
+      body: const Center(child: Text('这里是测试页')),
     );
   }
 }

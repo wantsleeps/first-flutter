@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/user_provider.dart';
 import '../models/companion_model.dart';
 import '../widgets/interaction_widgets.dart';
+import '../pages/chat_page.dart';
 
 class CompanionDetailPage extends StatelessWidget {
   final Companion companion;
@@ -235,7 +238,12 @@ class CompanionDetailPage extends StatelessWidget {
                     text: "私聊",
                     icon: Icons.chat_bubble_outline,
                     onPressed: () {
-                      // Navigate to chat
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatPage(companion: companion),
+                        ),
+                      );
                     },
                   ),
                   const SizedBox(width: 12),
@@ -333,10 +341,28 @@ class CompanionDetailPage extends StatelessWidget {
               text: "确认支付",
               fullWidth: true,
               onPressed: () {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(
+                final success = Provider.of<UserProvider>(
                   context,
-                ).showSnackBar(const SnackBar(content: Text("订单请求已发送！")));
+                  listen: false,
+                ).placeOrder(companion, 1);
+
+                Navigator.pop(context);
+
+                if (success) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("下单成功！快去和陪玩大神聊天吧~"),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("余额不足，请先充值！"),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               },
             ),
             const SizedBox(height: 20),

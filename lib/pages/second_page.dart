@@ -24,27 +24,24 @@ class _SecondPageState extends State<SecondPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Second Page"),
+        title: const Text("详情页"),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "This is the Second Page!",
-              style: TextStyle(fontSize: 24),
-            ),
+            const Text("这里是详情页！", style: TextStyle(fontSize: 24)),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context, 'refresh');
               },
-              child: const Text("Go Back"),
+              child: const Text("返回"),
             ),
             ElevatedButton(
               onPressed: () => go(context),
-              child: const Text("Go to Test Page"),
+              child: const Text("前往测试页"),
             ),
           ],
         ),
