@@ -5,6 +5,7 @@ import '../pages/wallet_page.dart';
 import '../pages/order_list_page.dart';
 import '../pages/second_page.dart';
 import '../pages/test.dart';
+import '../pages/error.dart';
 
 class AppRoutes {
   static const String home = '/';
@@ -13,6 +14,7 @@ class AppRoutes {
   static const String orders = '/orders';
   static const String details = '/details';
   static const String test = '/test';
+  static const String error = '/error';
 
   static Map<String, WidgetBuilder> get routes => {
     // home: (context) => MyHomePage(title: '游戏陪玩', token: 10), // Conflict with MaterialApp.home
@@ -21,5 +23,6 @@ class AppRoutes {
     orders: (context) => const OrderListPage(),
     details: (context) => const SecondPage(), // Keeping existing
     test: (context) => const Test(),
+    error: (context) => const ErrorPage(),
   };
 }

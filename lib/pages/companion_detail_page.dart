@@ -25,11 +25,41 @@ class CompanionDetailPage extends StatelessWidget {
                 // Header Image
                 Stack(
                   children: [
-                    Image.network(
-                      companion.avatarUrl,
-                      height: 400,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Scaffold(
+                              backgroundColor: Colors.black,
+                              body: Dismissible(
+                                key: const Key('image_viewer'),
+                                direction: DismissDirection.down,
+                                onDismissed: (_) => Navigator.pop(context),
+                                child: GestureDetector(
+                                  onTap: () => Navigator.pop(context),
+                                  child: Center(
+                                    child: InteractiveViewer(
+                                      child: Image.network(
+                                        companion.avatarUrl,
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Image.network(
+                        companion.avatarUrl,
+                        height: 400,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     Positioned(
                       bottom: 0,

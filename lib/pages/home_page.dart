@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/companion_model.dart';
 import '../widgets/companion_card.dart';
+import 'webview_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -158,6 +159,18 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const WebViewPage(url: 'http://192.168.200.33:8080/inv/'),
+            ),
+          );
+        },
+        child: const Icon(Icons.web),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/pages/error.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../router/app_routes.dart';
@@ -87,6 +88,15 @@ class ProfilePage extends StatelessWidget {
                 _buildMenuItem(context, Icons.favorite, "我的收藏", () {}),
                 _buildMenuItem(context, Icons.settings, "设置", () {}),
                 _buildMenuItem(context, Icons.help_outline, "帮助与客服", () {}),
+                _buildMenuItem(
+                  context,
+                  Icons.error,
+                  "error页面",
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ErrorPage()),
+                  ),
+                ),
                 const SizedBox(height: 40),
 
                 TextButton(
