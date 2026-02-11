@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../router/app_routes.dart';
+import '../widgets/glass_scaffold.dart'; // Import
+import '../widgets/glass_card.dart'; // Import
+import '../widgets/interaction_widgets.dart'; // Import PrimaryButton
+import '../utils/style.dart'; // Import
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -36,88 +40,91 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
+    return GlassScaffold(
+      body: Center(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Icon(Icons.gamepad, size: 80, color: Colors.black),
-              const SizedBox(height: 16),
-              const Text(
-                "游戏陪玩",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                "寻找你的完美游戏伙伴",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey, fontSize: 16),
-              ),
-              const SizedBox(height: 48),
-              TextField(
-                controller: _usernameController,
-                onChanged: (value) {
-                  print('OnChanged (print): $value');
-                },
-                decoration: InputDecoration(
-                  labelText: "用户名",
-                  prefixIcon: const Icon(Icons.person_outline),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[50],
+          child: GlassCard(
+            borderRadius: 30,
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Icon(
+                  Icons.water_drop_rounded, // Liquid icon
+                  size: 80,
+                  color: AppColors.primary,
                 ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "密码",
-                  prefixIcon: const Icon(Icons.lock_outline),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[50],
+                const SizedBox(height: 16),
+                Text(
+                  "游戏陪玩",
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.header.copyWith(fontSize: 32),
                 ),
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _isLoading ? null : _login,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 0,
+                const SizedBox(height: 8),
+                Text(
+                  "寻找你的完美游戏伙伴",
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.caption.copyWith(fontSize: 16),
                 ),
-                child: _isLoading
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
-                    : const Text(
-                        "登录",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-              ),
-            ],
+                const SizedBox(height: 48),
+
+                // Username Input
+                _buildGlassInput(
+                  controller: _usernameController,
+                  label: "用户名",
+                  icon: Icons.person_outline,
+                ),
+                const SizedBox(height: 20),
+
+                // Password Input
+                _buildGlassInput(
+                  controller: _passwordController,
+                  label: "密码",
+                  icon: Icons.lock_outline,
+                  obscureText: true,
+                ),
+                const SizedBox(height: 32),
+
+                // Login Button
+                PrimaryButton(
+                  text: _isLoading ? "登录中..." : "登录",
+                  fullWidth: true,
+                  onPressed: _isLoading ? () {} : _login,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGlassInput({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    bool obscureText = false,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.glassWhite,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.glassBorder),
+      ),
+      child: TextField(
+        controller: controller,
+        obscureText: obscureText,
+        style: const TextStyle(color: AppColors.textBlack),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: AppColors.textGrey),
+          prefixIcon: Icon(icon, color: AppColors.primary),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 16,
           ),
         ),
       ),

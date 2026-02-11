@@ -1,8 +1,12 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../models/companion_model.dart';
 import '../widgets/interaction_widgets.dart';
+import '../widgets/glass_scaffold.dart'; // Import
+import '../widgets/glass_card.dart'; // Import
+import '../utils/style.dart'; // Import
 import '../pages/chat_page.dart';
 
 class CompanionDetailPage extends StatelessWidget {
@@ -12,13 +16,13 @@ class CompanionDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
+    return GlassScaffold(
+      useSafeArea: false,
       body: Stack(
         children: [
           // Content
           SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: 100),
+            padding: const EdgeInsets.only(bottom: 120),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -56,7 +60,7 @@ class CompanionDetailPage extends StatelessWidget {
                       },
                       child: Image.network(
                         companion.avatarUrl,
-                        height: 400,
+                        height: 450, // Taller image
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
@@ -65,7 +69,7 @@ class CompanionDetailPage extends StatelessWidget {
                       bottom: 0,
                       left: 0,
                       right: 0,
-                      height: 100,
+                      height: 150,
                       child: Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -73,8 +77,9 @@ class CompanionDetailPage extends StatelessWidget {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Colors.white.withOpacity(0.8),
-                              Colors.white,
+                              AppColors.backgroundStart.withOpacity(0.0),
+                              AppColors
+                                  .backgroundStart, // Blend into background? No, blend to transparent usually
                             ],
                           ),
                         ),
@@ -83,138 +88,166 @@ class CompanionDetailPage extends StatelessWidget {
                   ],
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Name and Status
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            companion.name,
-                            style: const TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: companion.isOnline
-                                  ? Colors.green[50]
-                                  : Colors.grey[100],
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Text(
-                              companion.isOnline ? "在线" : "离线",
-                              style: TextStyle(
-                                color: companion.isOnline
-                                    ? Colors.green
-                                    : Colors.grey,
-                                fontWeight: FontWeight.bold,
+                // Overlapping Glass Content
+                Transform.translate(
+                  offset: const Offset(0, -40),
+                  child: GlassCard(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    width: double.infinity,
+                    borderRadius: 30,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Name and Status
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(companion.name, style: AppTextStyles.header),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 6,
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      // Game and Rank
-                      Row(
-                        children: [
-                          _buildTag(
-                            companion.game,
-                            Colors.deepPurple[50]!,
-                            Colors.deepPurple,
-                          ),
-                          const SizedBox(width: 8),
-                          const Icon(Icons.star, color: Colors.amber, size: 20),
-                          Text(
-                            " ${companion.rating} (${companion.orderCount}+ 接单)",
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-
-                      // Tags
-                      Wrap(
-                        spacing: 8,
-                        children: companion.tags
-                            .map(
-                              (tag) => Chip(
-                                label: Text(tag),
-                                backgroundColor: Colors.grey[100],
-                                labelStyle: TextStyle(color: Colors.grey[800]),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  side: BorderSide.none,
+                              decoration: BoxDecoration(
+                                color: companion.isOnline
+                                    ? Colors.green.withOpacity(0.1)
+                                    : Colors.grey.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: companion.isOnline
+                                      ? Colors.green.withOpacity(0.5)
+                                      : Colors.grey.withOpacity(0.5),
                                 ),
                               ),
-                            )
-                            .toList(),
-                      ),
-                      const SizedBox(height: 24),
-
-                      // About Section
-                      const Text(
-                        "个人简介",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        companion.description,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                          height: 1.5,
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-
-                      // Audio Sample (Mock)
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[50],
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Row(
-                          children: [
-                            const CircleAvatar(
-                              backgroundColor: Colors.black,
-                              child: Icon(
-                                Icons.play_arrow,
-                                color: Colors.white,
+                              child: Text(
+                                companion.isOnline ? "在线" : "离线",
+                                style: TextStyle(
+                                  color: companion.isOnline
+                                      ? Colors.green
+                                      : Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Container(
-                                height: 4,
-                                color: Colors.grey[300],
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            const Text(
-                              "0:12",
-                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        // Game and Rank
+                        Row(
+                          children: [
+                            _buildTag(
+                              companion.game,
+                              AppColors.primary.withOpacity(0.1),
+                              AppColors.primary,
+                            ),
+                            const SizedBox(width: 8),
+                            const Icon(
+                              Icons.star_rounded,
+                              color: Colors.amber,
+                              size: 22,
+                            ),
+                            Text(
+                              " ${companion.rating} (${companion.orderCount}+ 接单)",
+                              style: AppTextStyles.caption.copyWith(
+                                fontSize: 14,
+                                color: AppColors.textGrey,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
+
+                        // Tags
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: companion.tags
+                              .map(
+                                (tag) => Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.glassWhite,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: AppColors.glassBorder,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    tag,
+                                    style: TextStyle(
+                                      color: AppColors.textBlack.withOpacity(
+                                        0.7,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        const SizedBox(height: 24),
+
+                        // About Section
+                        const Text("个人简介", style: AppTextStyles.subHeader),
+                        const SizedBox(height: 8),
+                        Text(
+                          companion.description,
+                          style: AppTextStyles.body.copyWith(
+                            color: AppColors.textGrey,
+                            height: 1.5,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+
+                        // Audio Sample (Mock)
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppColors.glassWhite,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: AppColors.glassBorder),
+                          ),
+                          child: Row(
+                            children: [
+                              const CircleAvatar(
+                                backgroundColor: AppColors.textBlack,
+                                child: Icon(
+                                  Icons.play_arrow,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Container(
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                  child: FractionallySizedBox(
+                                    alignment: Alignment.centerLeft,
+                                    widthFactor: 0.3,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: AppColors.primary,
+                                        borderRadius: BorderRadius.circular(2),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              const Text(
+                                "0:12",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -225,41 +258,59 @@ class CompanionDetailPage extends StatelessWidget {
           Positioned(
             top: 50,
             left: 20,
-            child: CircleAvatar(
-              backgroundColor: Colors.white.withOpacity(0.8),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.black),
-                onPressed: () => Navigator.pop(context),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: AppColors.glassWhite,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: AppColors.textBlack,
+                      size: 20,
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
               ),
             ),
           ),
 
           // Bottom Bar
           Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                border: Border(top: BorderSide(color: Colors.black12)),
-              ),
+            bottom: 20,
+            left: 20,
+            right: 20,
+            child: GlassCard(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              borderRadius: 30,
+              color: AppColors.glassWhiteHigh, // Less transparent for contrast
               child: Row(
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         "¥${companion.price.toStringAsFixed(0)}",
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w900,
+                          color: AppColors.textBlack,
                         ),
                       ),
                       const Text(
                         "/小时",
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.textGrey,
+                        ),
                       ),
                     ],
                   ),
@@ -267,6 +318,10 @@ class CompanionDetailPage extends StatelessWidget {
                   SecondaryButton(
                     text: "私聊",
                     icon: Icons.chat_bubble_outline,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -279,6 +334,10 @@ class CompanionDetailPage extends StatelessWidget {
                   const SizedBox(width: 12),
                   PrimaryButton(
                     text: "立即下单",
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     onPressed: () {
                       _showBookingModal(context);
                     },
@@ -313,11 +372,13 @@ class CompanionDetailPage extends StatelessWidget {
   void _showBookingModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
+      backgroundColor: Colors.transparent,
       builder: (context) => Container(
         padding: const EdgeInsets.all(24),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -367,16 +428,20 @@ class CompanionDetailPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 30),
+
             PrimaryButton(
               text: "确认支付",
               fullWidth: true,
               onPressed: () {
-                final success = Provider.of<UserProvider>(
+                final userProvider = Provider.of<UserProvider>(
                   context,
                   listen: false,
-                ).placeOrder(companion, 1);
+                );
 
+                // Close modal first
                 Navigator.pop(context);
+
+                final success = userProvider.placeOrder(companion, 1);
 
                 if (success) {
                   ScaffoldMessenger.of(context).showSnackBar(

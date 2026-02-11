@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/companion_model.dart';
 import '../pages/companion_detail_page.dart';
+import '../widgets/glass_card.dart';
+import '../utils/style.dart';
 
 class CompanionCard extends StatelessWidget {
   final Companion companion;
@@ -18,36 +20,22 @@ class CompanionCard extends StatelessWidget {
           ),
         );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
+      child: GlassCard(
+        padding: EdgeInsets.zero,
+        borderRadius: 24,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Image Section with Online Status
             Stack(
               children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
+                SizedBox(
+                  height: 160,
+                  width: double.infinity,
                   child: Image.network(
                     companion.avatarUrl,
-                    height: 140,
-                    width: double.infinity,
                     fit: BoxFit.cover,
                     errorBuilder: (ctx, error, stackTrace) => Container(
-                      height: 140,
                       color: Colors.grey[200],
                       child: const Icon(
                         Icons.person,
@@ -58,16 +46,31 @@ class CompanionCard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 8,
-                  right: 8,
+                  top: 10,
+                  right: 10,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
+                      horizontal: 10,
+                      vertical: 5,
                     ),
                     decoration: BoxDecoration(
-                      color: companion.isOnline ? Colors.green : Colors.grey,
+                      gradient: companion.isOnline
+                          ? const LinearGradient(
+                              colors: [Colors.greenAccent, Colors.green],
+                            )
+                          : const LinearGradient(
+                              colors: [Colors.grey, Colors.blueGrey],
+                            ),
                       borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              (companion.isOnline ? Colors.green : Colors.grey)
+                                  .withOpacity(0.4),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child: Text(
                       companion.isOnline ? "在线" : "离线",
@@ -84,7 +87,7 @@ class CompanionCard extends StatelessWidget {
 
             // Info Section
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -93,51 +96,61 @@ class CompanionCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           companion.name,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
+                          style: AppTextStyles.subHeader.copyWith(fontSize: 18),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const Icon(Icons.star, color: Colors.amber, size: 14),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: Colors.amber,
+                        size: 18,
+                      ),
                       Text(
                         "${companion.rating}",
                         style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                           color: Colors.amber,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    companion.game,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.deepPurple[400],
-                      fontWeight: FontWeight.w500,
+                  const SizedBox(height: 6),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      companion.game,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "¥${companion.price.toStringAsFixed(0)}/小时",
                         style: const TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w900,
-                          color: Colors.black,
+                          color: AppColors.textBlack,
                         ),
                       ),
                       Text(
                         "${companion.orderCount} 单",
-                        style: TextStyle(fontSize: 10, color: Colors.grey[500]),
+                        style: AppTextStyles.caption,
                       ),
                     ],
                   ),

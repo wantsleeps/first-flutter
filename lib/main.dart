@@ -1,13 +1,17 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'pages/home_page.dart';
 import 'pages/message_page.dart';
 import 'pages/profile_page.dart';
 import 'router/app_routes.dart';
+import 'widgets/glass_scaffold.dart';
+import 'utils/style.dart';
 
 import 'package:provider/provider.dart';
 import 'pages/login_page.dart';
 import 'providers/user_provider.dart';
+import 'widgets/liquid_bottom_nav_bar.dart'; // Import
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -34,16 +38,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.black,
-          primary: Colors.black,
-          secondary: Colors.deepPurpleAccent,
+          seedColor: AppColors.primary,
+          primary: AppColors.primary,
+          secondary: AppColors.secondary,
         ),
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor:
+            Colors.transparent, // Important for GlassScaffold
+        fontFamily: 'SF Pro Display', // Use the font defined in styles
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
+          titleTextStyle: AppTextStyles.header,
+          iconTheme: IconThemeData(color: AppColors.textBlack),
         ),
       ),
       // Use Consumer to decide which page to show
@@ -87,40 +95,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GlassScaffold(
+      extendBody: true, // Allow body to go behind the floating nav
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.grey[200]!, width: 1)),
-        ),
-        child: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: '首页',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_outline),
-              activeIcon: Icon(Icons.chat_bubble),
-              label: '消息',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              activeIcon: Icon(Icons.person),
-              label: '我的',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.grey,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
-          onTap: _onItemTapped,
-        ),
+      bottomNavigationBar: LiquidBottomNavBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

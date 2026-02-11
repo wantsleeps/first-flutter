@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/companion_model.dart';
+import '../widgets/glass_scaffold.dart'; // Import
+import '../utils/style.dart'; // Import
+import 'dart:ui'; // For ImageFilter
 
 class ChatPage extends StatefulWidget {
   final Companion companion;
@@ -56,24 +59,55 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(widget.companion.avatarUrl),
-              radius: 16,
-            ),
-            const SizedBox(width: 8),
-            Text(widget.companion.name),
-          ],
-        ),
-      ),
+    return GlassScaffold(
       body: Column(
         children: [
+          // Glass AppBar
+          ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).padding.top + 10,
+                  bottom: 10,
+                  left: 16,
+                  right: 16,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.glassWhite,
+                  border: const Border(
+                    bottom: BorderSide(color: AppColors.glassBorder),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: AppColors.textBlack,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    const SizedBox(width: 8),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(widget.companion.avatarUrl),
+                      radius: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      widget.companion.name,
+                      style: AppTextStyles.header.copyWith(fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // Messages
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               itemCount: _messages.length,
               itemBuilder: (context, index) {
                 final msg = _messages[index];
@@ -85,25 +119,43 @@ class _ChatPageState extends State<ChatPage> {
                     margin: const EdgeInsets.symmetric(vertical: 4),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
-                      vertical: 10,
+                      vertical: 12, // More breathing room
+                    ),
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.75,
                     ),
                     decoration: BoxDecoration(
-                      color: msg.isMe ? Colors.black : Colors.grey[200],
+                      gradient: msg.isMe ? AppGradients.primaryGradient : null,
+                      color: msg.isMe ? null : AppColors.glassWhite,
                       borderRadius: BorderRadius.only(
-                        topLeft: const Radius.circular(16),
-                        topRight: const Radius.circular(16),
+                        topLeft: const Radius.circular(20),
+                        topRight: const Radius.circular(20),
                         bottomLeft: msg.isMe
-                            ? const Radius.circular(16)
+                            ? const Radius.circular(20)
                             : Radius.zero,
                         bottomRight: msg.isMe
                             ? Radius.zero
-                            : const Radius.circular(16),
+                            : const Radius.circular(20),
                       ),
+                      boxShadow: msg.isMe
+                          ? [
+                              BoxShadow(
+                                color: AppColors.primary.withOpacity(0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ]
+                          : [], // No shadow for received glass messages, or maybe subtle?
+                      border: msg.isMe
+                          ? null
+                          : Border.all(color: AppColors.glassBorder),
                     ),
                     child: Text(
                       msg.text,
                       style: TextStyle(
-                        color: msg.isMe ? Colors.white : Colors.black,
+                        color: msg.isMe ? Colors.white : AppColors.textBlack,
+                        fontSize: 15,
+                        height: 1.4,
                       ),
                     ),
                   ),
@@ -111,35 +163,53 @@ class _ChatPageState extends State<ChatPage> {
               },
             ),
           ),
+
+          // Input Area
           Container(
-            padding: const EdgeInsets.all(10),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              border: Border(top: BorderSide(color: Colors.black12)),
+            padding: EdgeInsets.fromLTRB(
+              16,
+              16,
+              16,
+              MediaQuery.of(context).padding.bottom + 16,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.glassWhiteHigh, // Less transparent for input
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(30),
+              ),
+              border: const Border(
+                top: BorderSide(color: AppColors.glassBorder),
+              ),
             ),
             child: Row(
               children: [
                 Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      hintText: "输入消息...",
-                      filled: true,
-                      fillColor: Colors.grey[100],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide.none,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: AppColors.glassBorder),
+                    ),
+                    child: TextField(
+                      controller: _controller,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 12,
+                        ),
+                        hintText: "输入消息...",
+                        hintStyle: TextStyle(color: AppColors.textGrey),
+                        border: InputBorder.none,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                CircleAvatar(
-                  backgroundColor: Colors.black,
+                const SizedBox(width: 12),
+                Container(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: AppGradients.primaryGradient,
+                  ),
                   child: IconButton(
                     icon: const Icon(Icons.send, color: Colors.white, size: 20),
                     onPressed: _sendMessage,
