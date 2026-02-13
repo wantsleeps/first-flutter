@@ -17,11 +17,11 @@ class AppRoutes {
   static const String error = '/error';
 
   static Map<String, WidgetBuilder> get routes => {
-    // home: (context) => MyHomePage(title: '游戏陪玩', token: 10), // Conflict with MaterialApp.home
+    // home: (context) => MyHomePage(title: '游戏陪玩', token: 10), // 与 MaterialApp.home 冲突
     login: (context) => const LoginPage(),
     wallet: (context) => const WalletPage(),
     orders: (context) => const OrderListPage(),
-    details: (context) => const SecondPage(), // Keeping existing
+    details: (context) => const SecondPage(), // 保留现有
     test: (context) => const Test(),
     error: (context) => const ErrorPage(),
   };

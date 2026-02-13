@@ -26,7 +26,7 @@ class CompanionCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image Section with Online Status
+            // 头像区域（包含在线状态）
             Stack(
               children: [
                 SizedBox(
@@ -85,7 +85,7 @@ class CompanionCard extends StatelessWidget {
               ],
             ),
 
-            // Info Section
+            // 信息区域
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

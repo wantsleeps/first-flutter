@@ -2,15 +2,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primary = Color(0xFF6A11CB); // Deep Purple
-  static const Color secondary = Color(0xFF2575FC); // Vibrant Blue
-  static const Color accent = Color(0xFF00F260); // Neon Green
+  static const Color primary = Color(0xFF6A11CB); // 深紫色
+  static const Color secondary = Color(0xFF2575FC); // 活力蓝
+  static const Color accent = Color(0xFF00F260); // 霓虹绿
   static const Color backgroundStart = Color(0xFFE0EAFC);
   static const Color backgroundEnd = Color(0xFFCFDEF3);
 
-  static const Color glassWhite = Color(0x33FFFFFF); // 20% White
-  static const Color glassWhiteHigh = Color(0x66FFFFFF); // 40% White
-  static const Color glassBorder = Color(0x4DFFFFFF); // 30% White
+  static const Color glassWhite = Color(0x33FFFFFF); // 20% 白色
+  static const Color glassWhiteHigh = Color(0x66FFFFFF); // 40% 白色
+  static const Color glassBorder = Color(0x4DFFFFFF); // 30% 白色
 
   static const Color textBlack = Color(0xFF1D1D1F);
   static const Color textGrey = Color(0xFF86868B);
@@ -37,7 +37,7 @@ class AppGradients {
   );
 
   static const LinearGradient waterDrop = LinearGradient(
-    colors: [Color(0xFF89F7FE), Color(0xFF66A6FF)], // Fresh Water: Cyan to Blue
+    colors: [Color(0xFF89F7FE), Color(0xFF66A6FF)], // 清新水色：青色到蓝色
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -45,7 +45,7 @@ class AppGradients {
 
 class AppTextStyles {
   static const TextStyle header = TextStyle(
-    fontFamily: 'SF Pro Display', // Assuming system font or asset
+    fontFamily: 'SF Pro Display', // 假设使用系统字体或资源字体
     fontSize: 28,
     fontWeight: FontWeight.bold,
     color: AppColors.textBlack,

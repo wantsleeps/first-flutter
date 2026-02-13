@@ -10,7 +10,12 @@ class WalletPage extends StatelessWidget {
     final userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("我的钱包"), centerTitle: true),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text("我的钱包"),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: Column(
         children: [
           Container(

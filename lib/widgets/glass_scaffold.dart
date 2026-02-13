@@ -25,10 +25,10 @@ class GlassScaffold extends StatelessWidget {
       extendBody: extendBody,
       extendBodyBehindAppBar: extendBodyBehindAppBar,
       appBar: appBar,
-      backgroundColor: Colors.transparent, // Important for background to show
+      backgroundColor: Colors.transparent, // 显示背景的关键
       body: Stack(
         children: [
-          // 1. Mesh Gradient Background
+          // 1. 混合渐变背景
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
@@ -36,7 +36,7 @@ class GlassScaffold extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  // Add some "Organic Orbs" for the liquid feel
+                  // 添加一些“有机球体”以营造流动感
                   Positioned(
                     top: -100,
                     right: -100,
@@ -52,10 +52,10 @@ class GlassScaffold extends StatelessWidget {
             ),
           ),
 
-          // 2. Main Content
+          // 2. 主要内容
           useSafeArea
               ? SafeArea(
-                  bottom: false, // Let content flow behind bottom nav if needed
+                  bottom: false, // 如果需要，允许内容延伸到底部导航栏下方
                   child: body,
                 )
               : body,

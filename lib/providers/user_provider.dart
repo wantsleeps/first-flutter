@@ -9,7 +9,7 @@ class UserProvider extends ChangeNotifier {
   String _avatarUrl = "";
   double _balance = 0.0;
   List<Order> _orders = [];
-  final List<String> _favorites = []; // List of Companion IDs
+  final List<String> _favorites = []; // 陪玩 ID 列表
 
   bool get isLoggedIn => _isLoggedIn;
   String get userName => _userName;
@@ -20,12 +20,12 @@ class UserProvider extends ChangeNotifier {
   List<String> get favorites => _favorites;
 
   void login(String name, String password) {
-    // Mock Login Logic
+    // 模拟登录逻辑
     _isLoggedIn = true;
     _userName = name.isNotEmpty ? name : "玩家一号";
     _userId = "9527${DateTime.now().second}";
     _avatarUrl = "https://api.dicebear.com/7.x/avataaars/png?seed=${_userName}";
-    _balance = 1288.0; // Give some initial money
+    _balance = 1288.0; // 给予初始资金
     notifyListeners();
   }
 

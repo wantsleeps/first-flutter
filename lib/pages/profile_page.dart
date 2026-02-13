@@ -3,23 +3,23 @@ import 'package:hello_flutter/pages/error.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../router/app_routes.dart';
-import '../widgets/glass_card.dart'; // Import
-import '../utils/style.dart'; // Import
+import '../widgets/glass_card.dart'; // 导入
+import '../utils/style.dart'; // 导入
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Use Consumer to rebuild when user data changes
+    // 使用 Consumer 在用户数据变化时重建
     return Consumer<UserProvider>(
       builder: (context, userProvider, child) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.only(bottom: 100), // Padding for bottom nav
+          padding: const EdgeInsets.only(bottom: 100), // 底部导航栏的内边距
           child: Column(
             children: [
               const SizedBox(height: 60),
-              // Avatar with Liquid Glow
+              // 带有液体发光效果的头像
               Center(
                 child: Column(
                   children: [
@@ -65,7 +65,7 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-              // Stats in GlassCard
+              // GlassCard 中的统计数据
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: GlassCard(
@@ -78,7 +78,7 @@ class ProfilePage extends StatelessWidget {
                         "¥${userProvider.balance.toStringAsFixed(0)}",
                       ),
                       _buildStatItem("订单", "${userProvider.orders.length}"),
-                      _buildStatItem("优惠券", "3"), // Mock
+                      _buildStatItem("优惠券", "3"), // 模拟
                     ],
                   ),
                 ),
@@ -86,7 +86,7 @@ class ProfilePage extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              // Menu Items in GlassCard
+              // GlassCard 中的菜单项
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: GlassCard(
@@ -145,9 +145,7 @@ class ProfilePage extends StatelessWidget {
                         "error页面",
                         () => Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const ErrorPage(),
-                          ),
+                          MaterialPageRoute(builder: (context) => ErrorPage()),
                         ),
                       ),
                     ],

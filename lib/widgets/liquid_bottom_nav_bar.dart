@@ -15,18 +15,13 @@ class LiquidBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(
-        20,
-        0,
-        20,
-        30,
-      ), // Bottom padding for floating effect
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 30), // 底部内边距，营造浮动效果
       child: ClipRRect(
         borderRadius: BorderRadius.circular(35),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
           child: Container(
-            height: 70, // Taller for better touch target
+            height: 70, // 增加高度以优化触摸目标
             decoration: BoxDecoration(
               color: AppColors.glassWhiteHigh,
               borderRadius: BorderRadius.circular(35),
@@ -46,17 +41,14 @@ class LiquidBottomNavBar extends StatelessWidget {
               builder: (context, constraints) {
                 final double itemWidth = constraints.maxWidth / 3;
                 const double indicatorHeight = 50;
-                const double indicatorWidth =
-                    70; // "Flattened" water drop width
+                const double indicatorWidth = 70; // “扁平”水滴宽度
 
                 return Stack(
                   children: [
-                    // The "Flattened Water Drop" Indicator
+                    // “扁平水滴”指示器
                     AnimatedPositioned(
                       duration: const Duration(milliseconds: 1500),
-                      curve: const ElasticOutCurve(
-                        0.85,
-                      ), // Slower, smoother bounce
+                      curve: const ElasticOutCurve(0.85), // 更慢、更平滑的回弹效果
                       left:
                           (currentIndex * itemWidth) +
                           (itemWidth - indicatorWidth) / 2,
@@ -66,7 +58,7 @@ class LiquidBottomNavBar extends StatelessWidget {
                         height: indicatorHeight,
                         decoration: BoxDecoration(
                           gradient: AppGradients.waterDrop,
-                          borderRadius: BorderRadius.circular(25), // Pill shape
+                          borderRadius: BorderRadius.circular(25), // 胶囊形状
                           boxShadow: [
                             BoxShadow(
                               color: const Color(0xFF66A6FF).withOpacity(0.4),
@@ -77,7 +69,7 @@ class LiquidBottomNavBar extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Icons Layer
+                    // 图标层
                     Row(
                       children: [
                         _buildNavItem(

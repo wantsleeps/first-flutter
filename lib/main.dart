@@ -16,8 +16,8 @@ import 'widgets/liquid_bottom_nav_bar.dart'; // Import
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // transparent status bar
-      statusBarIconBrightness: Brightness.dark, // dark text for status bar
+      statusBarColor: Colors.transparent, // 状态栏透明
+      statusBarIconBrightness: Brightness.dark, // 状态栏文字深色
     ),
   );
   runApp(
@@ -43,9 +43,8 @@ class MyApp extends StatelessWidget {
           secondary: AppColors.secondary,
         ),
         useMaterial3: true,
-        scaffoldBackgroundColor:
-            Colors.transparent, // Important for GlassScaffold
-        fontFamily: 'SF Pro Display', // Use the font defined in styles
+        scaffoldBackgroundColor: Colors.transparent, // 对 GlassScaffold 很重要
+        fontFamily: 'SF Pro Display', // 使用样式中定义的字体
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
@@ -54,7 +53,7 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: AppColors.textBlack),
         ),
       ),
-      // Use Consumer to decide which page to show
+      // 使用 Consumer 决定显示哪个页面
       home: Consumer<UserProvider>(
         builder: (context, userProvider, child) {
           return userProvider.isLoggedIn
@@ -62,7 +61,7 @@ class MyApp extends StatelessWidget {
               : const LoginPage();
         },
       ),
-      // initialRoute is replaced by logic in 'home' property
+      // initialRoute 被 'home' 属性中的逻辑取代
       routes: AppRoutes.routes,
     );
   }
@@ -96,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return GlassScaffold(
-      extendBody: true, // Allow body to go behind the floating nav
+      extendBody: true, // 允许 body 内容延伸到浮动导航栏下方
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: LiquidBottomNavBar(
         currentIndex: _selectedIndex,

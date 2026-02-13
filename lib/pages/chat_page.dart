@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/companion_model.dart';
-import '../widgets/glass_scaffold.dart'; // Import
-import '../utils/style.dart'; // Import
-import 'dart:ui'; // For ImageFilter
+import '../widgets/glass_scaffold.dart'; // 导入
+import '../utils/style.dart'; // 导入
+import 'dart:ui'; // 用于 ImageFilter
 
 class ChatPage extends StatefulWidget {
   final Companion companion;
@@ -39,7 +39,7 @@ class _ChatPageState extends State<ChatPage> {
       _controller.clear();
     });
 
-    // Simulate reply
+    // 模拟回复
     Future.delayed(const Duration(seconds: 1), () {
       if (mounted) {
         setState(() {
@@ -62,7 +62,7 @@ class _ChatPageState extends State<ChatPage> {
     return GlassScaffold(
       body: Column(
         children: [
-          // Glass AppBar
+          // 毛玻璃 AppBar
           ClipRRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
@@ -104,13 +104,18 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
 
-          // Messages
+          // 消息列表
           Expanded(
             child: ListView.builder(
+              reverse: true, // 从底部开始
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               itemCount: _messages.length,
               itemBuilder: (context, index) {
-                final msg = _messages[index];
+                // 因为设置了 reverse: true，所以索引 0 是最底部的项。
+                // 如果 _messages 是按 [最旧, ..., 最新] 排序，
+                // 我们希望索引 0 是最新的。
+                // 所以索引 0 映射到 _messages.length - 1。
+                final msg = _messages[_messages.length - 1 - index];
                 return Align(
                   alignment: msg.isMe
                       ? Alignment.centerRight
@@ -119,7 +124,7 @@ class _ChatPageState extends State<ChatPage> {
                     margin: const EdgeInsets.symmetric(vertical: 4),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
-                      vertical: 12, // More breathing room
+                      vertical: 12, // 更多留白
                     ),
                     constraints: BoxConstraints(
                       maxWidth: MediaQuery.of(context).size.width * 0.75,
@@ -145,7 +150,7 @@ class _ChatPageState extends State<ChatPage> {
                                 offset: const Offset(0, 4),
                               ),
                             ]
-                          : [], // No shadow for received glass messages, or maybe subtle?
+                          : [], // 接收到的毛玻璃消息没有阴影，或者稍微加一点？
                       border: msg.isMe
                           ? null
                           : Border.all(color: AppColors.glassBorder),
@@ -164,7 +169,7 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
 
-          // Input Area
+          // 输入区域
           Container(
             padding: EdgeInsets.fromLTRB(
               16,
@@ -173,7 +178,7 @@ class _ChatPageState extends State<ChatPage> {
               MediaQuery.of(context).padding.bottom + 16,
             ),
             decoration: BoxDecoration(
-              color: AppColors.glassWhiteHigh, // Less transparent for input
+              color: AppColors.glassWhiteHigh, // 输入框透明度较低
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(30),
               ),

@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import '../models/companion_model.dart';
 import 'chat_page.dart';
-import '../widgets/glass_card.dart'; // Import
-import '../utils/style.dart'; // Import
+import '../widgets/glass_card.dart'; // 导入
+import '../utils/style.dart'; // 导入
 
 class MessagePage extends StatelessWidget {
   const MessagePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final chatCompanions = MockData.companions
-        .take(3)
-        .toList(); // Mock active chats
+    final chatCompanions = MockData.companions.take(3).toList(); // 模拟活跃聊天
 
     return Column(
       children: [
-        // Custom Glass Header
+        // 自定义毛玻璃头部
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 60, 16, 10),
           child: Row(children: [Text("消息", style: AppTextStyles.header)]),
         ),
 
-        // Chat List
+        // 聊天列表
         Expanded(
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
@@ -80,7 +78,7 @@ class MessagePage extends StatelessWidget {
                             fontSize: 12,
                           ),
                         ),
-                        if (index == 0) // Mock Unread Badge
+                        if (index == 0) // 模拟未读角标
                           Container(
                             margin: const EdgeInsets.only(top: 6),
                             padding: const EdgeInsets.all(6),

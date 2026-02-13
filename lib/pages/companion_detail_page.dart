@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../models/companion_model.dart';
 import '../widgets/interaction_widgets.dart';
-import '../widgets/glass_scaffold.dart'; // Import
-import '../widgets/glass_card.dart'; // Import
-import '../utils/style.dart'; // Import
+import '../widgets/glass_scaffold.dart'; // 导入
+import '../widgets/glass_card.dart'; // 导入
+import '../utils/style.dart'; // 导入
 import '../pages/chat_page.dart';
 
 class CompanionDetailPage extends StatelessWidget {
@@ -20,13 +20,13 @@ class CompanionDetailPage extends StatelessWidget {
       useSafeArea: false,
       body: Stack(
         children: [
-          // Content
+          // 内容
           SingleChildScrollView(
             padding: const EdgeInsets.only(bottom: 120),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header Image
+                // 头部图片
                 Stack(
                   children: [
                     GestureDetector(
@@ -60,7 +60,7 @@ class CompanionDetailPage extends StatelessWidget {
                       },
                       child: Image.network(
                         companion.avatarUrl,
-                        height: 450, // Taller image
+                        height: 450, // 更高的图片
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
@@ -78,8 +78,7 @@ class CompanionDetailPage extends StatelessWidget {
                             colors: [
                               Colors.transparent,
                               AppColors.backgroundStart.withOpacity(0.0),
-                              AppColors
-                                  .backgroundStart, // Blend into background? No, blend to transparent usually
+                              AppColors.backgroundStart, // 融入背景？不，通常是融入透明
                             ],
                           ),
                         ),
@@ -88,7 +87,7 @@ class CompanionDetailPage extends StatelessWidget {
                   ],
                 ),
 
-                // Overlapping Glass Content
+                // 重叠的毛玻璃内容
                 Transform.translate(
                   offset: const Offset(0, -40),
                   child: GlassCard(
@@ -98,7 +97,7 @@ class CompanionDetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Name and Status
+                        // 名字和状态
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -132,7 +131,7 @@ class CompanionDetailPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        // Game and Rank
+                        // 游戏和段位
                         Row(
                           children: [
                             _buildTag(
@@ -157,7 +156,7 @@ class CompanionDetailPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 24),
 
-                        // Tags
+                        // 标签
                         Wrap(
                           spacing: 8,
                           runSpacing: 8,
@@ -189,7 +188,7 @@ class CompanionDetailPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 24),
 
-                        // About Section
+                        // 简介区域
                         const Text("个人简介", style: AppTextStyles.subHeader),
                         const SizedBox(height: 8),
                         Text(
@@ -201,7 +200,7 @@ class CompanionDetailPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 24),
 
-                        // Audio Sample (Mock)
+                        // 音频示例（模拟）
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
@@ -254,7 +253,7 @@ class CompanionDetailPage extends StatelessWidget {
             ),
           ),
 
-          // Back Button
+          // 返回按钮
           Positioned(
             top: 50,
             left: 20,
@@ -282,7 +281,7 @@ class CompanionDetailPage extends StatelessWidget {
             ),
           ),
 
-          // Bottom Bar
+          // 底部栏
           Positioned(
             bottom: 20,
             left: 20,
@@ -290,7 +289,7 @@ class CompanionDetailPage extends StatelessWidget {
             child: GlassCard(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               borderRadius: 30,
-              color: AppColors.glassWhiteHigh, // Less transparent for contrast
+              color: AppColors.glassWhiteHigh, // 透明度较低以增加对比度
               child: Row(
                 children: [
                   Column(
@@ -436,7 +435,7 @@ class CompanionDetailPage extends StatelessWidget {
                   listen: false,
                 );
 
-                // Close modal first
+                // 先关闭模态框
                 Navigator.pop(context);
 
                 final success = userProvider.placeOrder(companion, 1);

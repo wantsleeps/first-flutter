@@ -12,7 +12,12 @@ class OrderListPage extends StatelessWidget {
     final dateFormat = DateFormat('yyyy-MM-dd HH:mm');
 
     return Scaffold(
-      appBar: AppBar(title: const Text("我的订单"), centerTitle: true),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text("我的订单"),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: userProvider.orders.isEmpty
           ? Center(
               child: Column(

@@ -28,7 +28,7 @@ class LiquidButton extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: isPrimary ? AppGradients.primaryGradient : null,
           color: isPrimary ? null : AppColors.glassWhite,
-          borderRadius: BorderRadius.circular(30), // Pill shape
+          borderRadius: BorderRadius.circular(30), // 胶囊形状
           boxShadow: [
             if (isPrimary)
               BoxShadow(

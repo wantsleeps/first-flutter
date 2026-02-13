@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../router/app_routes.dart';
-import '../widgets/glass_scaffold.dart'; // Import
-import '../widgets/glass_card.dart'; // Import
-import '../widgets/interaction_widgets.dart'; // Import PrimaryButton
-import '../utils/style.dart'; // Import
+import '../widgets/glass_scaffold.dart'; // 导入
+import '../widgets/glass_card.dart'; // 导入
+import '../widgets/interaction_widgets.dart'; // 导入 PrimaryButton
+import '../utils/style.dart'; // 导入
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = true;
     });
 
-    // Simulate network delay
+    // 模拟网络延迟
     await Future.delayed(const Duration(milliseconds: 1500));
 
     if (mounted) {
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Icon(
-                  Icons.water_drop_rounded, // Liquid icon
+                  Icons.water_drop_rounded, // 液体图标
                   size: 80,
                   color: AppColors.primary,
                 ),
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 48),
 
-                // Username Input
+                // 用户名输入
                 _buildGlassInput(
                   controller: _usernameController,
                   label: "用户名",
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
 
-                // Password Input
+                // 密码输入
                 _buildGlassInput(
                   controller: _passwordController,
                   label: "密码",
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 32),
 
-                // Login Button
+                // 登录按钮
                 PrimaryButton(
                   text: _isLoading ? "登录中..." : "登录",
                   fullWidth: true,
