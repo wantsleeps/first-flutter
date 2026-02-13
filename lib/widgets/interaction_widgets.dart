@@ -7,6 +7,8 @@ class PrimaryButton extends StatelessWidget {
   final bool fullWidth;
   final IconData? icon;
   final EdgeInsetsGeometry? padding;
+  final double? width;
+  final double? height;
 
   const PrimaryButton({
     super.key,
@@ -15,6 +17,8 @@ class PrimaryButton extends StatelessWidget {
     this.fullWidth = false,
     this.icon,
     this.padding,
+    this.width,
+    this.height,
   });
 
   @override
@@ -22,7 +26,8 @@ class PrimaryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: fullWidth ? double.infinity : null,
+        width: fullWidth ? double.infinity : width,
+        height: height,
         padding:
             padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
@@ -36,23 +41,26 @@ class PrimaryButton extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null) ...[
-              Icon(icon, size: 20, color: Colors.white),
-              const SizedBox(width: 8),
-            ],
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+        child: Center(
+          widthFactor: width != null ? 1.0 : null,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (icon != null) ...[
+                Icon(icon, size: 20, color: Colors.white),
+                const SizedBox(width: 8),
+              ],
+              Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -64,6 +72,8 @@ class SecondaryButton extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData? icon;
   final EdgeInsetsGeometry? padding;
+  final double? width;
+  final double? height;
 
   const SecondaryButton({
     super.key,
@@ -71,6 +81,8 @@ class SecondaryButton extends StatelessWidget {
     required this.onPressed,
     this.icon,
     this.padding,
+    this.width,
+    this.height,
   });
 
   @override
@@ -78,6 +90,8 @@ class SecondaryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
+        width: width,
+        height: height,
         padding:
             padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
@@ -85,23 +99,26 @@ class SecondaryButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           border: Border.all(color: AppColors.glassBorder),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null) ...[
-              Icon(icon, size: 20, color: AppColors.textBlack),
-              const SizedBox(width: 8),
-            ],
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textBlack,
+        child: Center(
+          widthFactor: width != null ? 1.0 : null,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (icon != null) ...[
+                Icon(icon, size: 20, color: AppColors.textBlack),
+                const SizedBox(width: 8),
+              ],
+              Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textBlack,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

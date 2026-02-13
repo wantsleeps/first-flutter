@@ -334,13 +334,11 @@ class CompanionDetailPage extends StatelessWidget {
                   const SizedBox(width: 12),
                   PrimaryButton(
                     text: "立即下单",
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
+                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
                     onPressed: () {
                       _showBookingModal(context);
                     },
+                    width: 120,
                   ),
                 ],
               ),
