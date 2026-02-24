@@ -30,7 +30,7 @@ class CompanionCard extends StatelessWidget {
             Stack(
               children: [
                 SizedBox(
-                  height: 160,
+                  height: 110,
                   width: double.infinity,
                   child: Image.network(
                     companion.avatarUrl,
@@ -87,7 +87,7 @@ class CompanionCard extends StatelessWidget {
 
             // 信息区域
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -96,7 +96,7 @@ class CompanionCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           companion.name,
-                          style: AppTextStyles.subHeader.copyWith(fontSize: 18),
+                          style: AppTextStyles.subHeader.copyWith(fontSize: 14),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -105,7 +105,7 @@ class CompanionCard extends StatelessWidget {
                       const Icon(
                         Icons.star_rounded,
                         color: Colors.amber,
-                        size: 18,
+                        size: 14,
                       ),
                       Text(
                         "${companion.rating}",
@@ -143,7 +143,7 @@ class CompanionCard extends StatelessWidget {
                       Text(
                         "¥${companion.price.toStringAsFixed(0)}/小时",
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 12,
                           fontWeight: FontWeight.w900,
                           color: AppColors.textBlack,
                         ),

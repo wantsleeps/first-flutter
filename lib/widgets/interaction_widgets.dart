@@ -29,10 +29,10 @@ class PrimaryButton extends StatelessWidget {
         width: fullWidth ? double.infinity : width,
         height: height,
         padding:
-            padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           gradient: AppGradients.primaryGradient,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
               color: AppColors.primary.withOpacity(0.4),
@@ -54,7 +54,7 @@ class PrimaryButton extends StatelessWidget {
               Text(
                 text,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
@@ -93,10 +93,10 @@ class SecondaryButton extends StatelessWidget {
         width: width,
         height: height,
         padding:
-            padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           color: AppColors.glassWhiteHigh,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(24),
           border: Border.all(color: AppColors.glassBorder),
         ),
         child: Center(
@@ -112,7 +112,7 @@ class SecondaryButton extends StatelessWidget {
               Text(
                 text,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: AppColors.textBlack,
                 ),

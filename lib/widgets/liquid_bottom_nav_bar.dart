@@ -21,7 +21,7 @@ class LiquidBottomNavBar extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
           child: Container(
-            height: 70, // 增加高度以优化触摸目标
+            height: 60, // 增加高度以优化触摸目标
             decoration: BoxDecoration(
               color: AppColors.glassWhiteHigh,
               borderRadius: BorderRadius.circular(35),
@@ -40,7 +40,7 @@ class LiquidBottomNavBar extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final double itemWidth = constraints.maxWidth / 3;
-                const double indicatorHeight = 50;
+                const double indicatorHeight = 40;
                 const double indicatorWidth = 70; // “扁平”水滴宽度
 
                 return Stack(
@@ -52,7 +52,7 @@ class LiquidBottomNavBar extends StatelessWidget {
                       left:
                           (currentIndex * itemWidth) +
                           (itemWidth - indicatorWidth) / 2,
-                      top: (70 - indicatorHeight) / 2,
+                      top: (60 - indicatorHeight) / 2,
                       child: Container(
                         width: indicatorWidth,
                         height: indicatorHeight,
@@ -111,7 +111,7 @@ class LiquidBottomNavBar extends StatelessWidget {
     final bool isSelected = currentIndex == index;
     return SizedBox(
       width: width,
-      height: 70,
+      height: 60,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => onTap(index),
@@ -125,7 +125,7 @@ class LiquidBottomNavBar extends StatelessWidget {
               isSelected ? activeIcon : inactiveIcon,
               key: ValueKey<bool>(isSelected),
               color: isSelected ? Colors.white : AppColors.textGrey,
-              size: 28,
+              size: 24,
             ),
           ),
         ),

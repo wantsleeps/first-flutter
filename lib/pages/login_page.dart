@@ -46,21 +46,21 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(24.0),
           child: GlassCard(
             borderRadius: 30,
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Icon(
                   Icons.water_drop_rounded, // 液体图标
-                  size: 80,
+                  size: 60,
                   color: AppColors.primary,
                 ),
                 const SizedBox(height: 16),
                 Text(
                   "游戏陪玩",
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.header.copyWith(fontSize: 32),
+                  style: AppTextStyles.header.copyWith(fontSize: 24),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -124,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 20,
-            vertical: 16,
+            vertical: 12,
           ),
         ),
       ),

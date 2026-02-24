@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Expanded(
                 child: GlassCard(
-                  height: 55,
+                  height: 45,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   borderRadius: 30,
                   child: Row(
@@ -71,8 +71,8 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(width: 12),
               // 筛选按钮
               Container(
-                height: 55,
-                width: 55,
+                height: 45,
+                width: 45,
                 decoration: BoxDecoration(
                   gradient: AppGradients.primaryGradient,
                   borderRadius: BorderRadius.circular(20),
@@ -92,10 +92,10 @@ class _HomePageState extends State<HomePage> {
 
         // 分类横向列表
         SizedBox(
-          height: 60,
+          height: 30,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            // padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             itemCount: _categories.length,
             itemBuilder: (context, index) {
               final isSelected = _selectedCategoryIndex == index;
@@ -109,8 +109,8 @@ class _HomePageState extends State<HomePage> {
                   duration: const Duration(milliseconds: 200),
                   margin: const EdgeInsets.only(right: 12),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 8,
+                    horizontal: 8,
+                    vertical: 5,
                   ),
                   decoration: BoxDecoration(
                     color: isSelected

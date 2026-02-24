@@ -46,7 +46,7 @@ class AppGradients {
 class AppTextStyles {
   static const TextStyle header = TextStyle(
     fontFamily: 'SF Pro Display', // 假设使用系统字体或资源字体
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     color: AppColors.textBlack,
     letterSpacing: -0.5,
@@ -54,27 +54,27 @@ class AppTextStyles {
 
   static const TextStyle subHeader = TextStyle(
     fontFamily: 'SF Pro Text',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: FontWeight.w600,
     color: AppColors.textBlack,
   );
 
   static const TextStyle body = TextStyle(
     fontFamily: 'SF Pro Text',
-    fontSize: 16,
+    fontSize: 14,
     color: AppColors.textBlack,
   );
 
   static const TextStyle caption = TextStyle(
     fontFamily: 'SF Pro Text',
-    fontSize: 14,
+    fontSize: 12,
     color: AppColors.textGrey,
   );
 }
 
 class Glassdecoration extends BoxDecoration {
   Glassdecoration({
-    double radius = 20,
+    double radius = 16,
     Color color = AppColors.glassWhite,
     Color borderColor = AppColors.glassBorder,
   }) : super(
